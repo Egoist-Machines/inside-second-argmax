@@ -24,6 +24,10 @@
   </div>
   <p>The largest score selects an input position, indexed from zero. We present a parameter-level circuit account of all sixteen neurons and 432 weights, with <a href="pseudocode.html">pseudocode</a> and exact conditional explanations of candidate writes and rank errors.</p>
 
+  <h2 id="overview">How it finds the runner-up</h2>
+  <p>As inputs arrive, the network builds evidence for their positions. Delayed writes strengthen candidates, and recurrent activity carries older evidence forward. Learned comparisons usually lower the score at the maximum’s position, allowing a strong runner-up to win.</p>
+  <p>When a new maximum arrives, those comparisons can release the old maximum from suppression, exposing it as the new runner-up. A record response also penalizes the new maximum’s own position. Learned thresholds and limited write supply can cause these signals to favor the wrong rank.</p>
+
   <figure class="circuit-figure">
     <img src="assets/recurrent.svg" width="640" height="220" alt="The sixteen neurons in native order at two consecutive updates, connected by their two largest incoming recurrent weights. Solid arrows are positive and dashed arrows negative.">
     <ul class="legend" aria-label="Neuron roles">
@@ -36,7 +40,7 @@
   </figure>
 
   <h2>A write is also feedback</h2>
-  <p>Four comparisons, neurons 1, 6, 7 and 8, measure an arriving input against learned thresholds. Their shared activity and differences contribute to both admission and output scores. Neuron 2 carries maximum-like history; neuron 4 produces a graded record increment. These quantities can depart from the true ranked values.</p>
+  <p>Four comparisons, neurons 1, 6, 7 and 8, measure an arriving input against learned thresholds. Their shared activity and differences contribute to both admission and output scores. Neuron 2 carries maximum-like history; neuron 4 produces a graded record increment.</p>
   <p>A stored cutoff produces candidate amplitude in neuron 5. A candidate produced while reading input <i>t</i> tags input <i>t</i>−1; it writes at the following update by inhibiting eight carriers. The carriers transport positional evidence, receive record refill and lose activity to the old candidate. Neuron 9 supplies a separate delayed relay.</p>
 
   <p>Normalize each carrier by the cost of a candidate write. Its update is then:</p>
