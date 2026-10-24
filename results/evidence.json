@@ -16,6 +16,12 @@
     },
     "examples.json": {
       "sha256": "8164b60031ff8715ee14301a15f6dde7f0f4fc8f5f15d0184c85d8cbb7218462"
+    },
+    "accuracy.json": {
+      "sha256": "325d418da289c7c9d2327bc248ffe3ff53f0314830e84c730eb316b7200f022e"
+    },
+    "successful-trace.json": {
+      "sha256": "33a745b6923eb52eacdc53cac36edf7eaafe987d53c27f194cca0aee0c250d1d"
     }
   },
   "source_reconstruction": {
@@ -120,5 +126,17 @@
   "limits": [
     "The executable account retains 16 states and learned history filters. Mapping all parameters does not make every computation semantically understood.",
     "The two exact claims have explicit local premises and do not yield an ideal sorting recursion, a task-accuracy formula or an exhaustive error-cause classification."
-  ]
+  ],
+  "empirical_accuracy": {
+    "verifier": "reproduce/evaluate_accuracy.py",
+    "report": "results/accuracy.json",
+    "samples": 100000,
+    "correct": 95288,
+    "scope": "Seeded direct evaluation of the native recurrence, separate from a mechanism-based accuracy estimate."
+  },
+  "successful_trace": {
+    "verifier": "reproduce/check_trace.py",
+    "report": "results/successful-trace.json",
+    "scope": "Two native final-input branches and one diagnostic comparison-activity transplant; fixed numerical trace, not a universal rank rule."
+  }
 }

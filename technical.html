@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Coordinates, exact claims and validation scope for a circuit account of ARC's second-argmax network.">
   <title>Technical note · Inside a second-argmax network</title>
-  <link rel="stylesheet" href="assets/style.css?v=3">
+  <link rel="stylesheet" href="assets/style.css?v=4">
 </head>
 <body>
 <main class="technical">
@@ -16,6 +16,13 @@
   <p>This account uses ARC’s <code>example_2nd_argmax()</code>, whose source file is <code>one_layer_16_hidden_94_acc_2nd_argmax.pth</code>. It differs from the same-architecture <code>zoo_2nd_argmax(16,10)</code>. Its SHA-256 is:</p>
   <pre><code>498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb</code></pre>
   <p><a href="results/model.json">model.json</a> contains the 16 input, 256 recurrent and 160 readout weights. Rows of <i>W</i> are receiving neurons. Updates read one old state; prediction takes the first maximum of the ten final scores.</p>
+  <p id="accuracy">Direct evaluation gives 95,288 correct predictions out of 100,000 independent standard-Gaussian sequences: 95.288%. The <a href="results/accuracy.json">evaluation record</a> pins seed 0, NumPy PCG64, CPU float64 and the generated input hash. This measures task accuracy by sampling; it is separate from deriving accuracy from the circuit.</p>
+
+  <h2 id="record-switch">Successful record switch</h2>
+  <p>Both runs start from <code>[1,0,0,0,0,0,0,0.5,0]</code>. Final input 0.25 selects position 7; final input 2 selects position 0. The <a href="results/successful-trace.json">trace</a> retains all sixteen final activities and all ten scores. Its comparison contribution to the displayed margin is:</p>
+  <pre><code>comparison_margin = sum((V[0,i]-V[7,i])*h[i]
+                        for i in (1,6,7,8))</code></pre>
+  <p>That contribution is −18.266 for input 0.25 and zero for input 2, which closes all four comparisons. Other neurons contribute −6.648 and +1.363 respectively. Restoring only the lower-input comparison activities in the record run changes its total margin from +1.363 to −16.903 and selects 7 again. This isolates their final readout effect; reachability of the mixed control state is unproved. The fixed numerical trace does not establish a general rank rule.</p>
 
   <h2 id="coordinates">Sixteen stored coordinates</h2>
   <p>The <a href="pseudocode.html">pseudocode</a> and its <a href="reproduce/circuit.py">NumPy implementation</a> store:</p>
@@ -35,6 +42,7 @@ tau = W5 · h / abs(u5)
 K = W[5,Q] · u[Q]
 c = -(W[5,Q] @ W[Q,:]) · h / K</code></pre>
   <p>A four-field solve recovers <code>m,d,q,v</code>. Learned thresholds produce <code>d_next=relu(x-T4)</code> and <code>q_next=relu(R7-x)</code>; they are not exact order statistics.</p>
+  <p>Carrier background combines transport, current input, carry, query, comparison differences, relay 9 and record refill from 4. Old candidate 5 subtracts from that background before rectification. The resulting carrier flow updates <code>c</code>, <code>H</code> and <code>L</code>; a value/query packet and admission level form the next cutoff, as expanded in <a href="pseudocode.html#admission">pseudocode block 3</a>.</p>
   <table>
     <thead><tr><th>Physical rows</th><th>Retained operations</th></tr></thead>
     <tbody>
@@ -69,12 +77,14 @@ contrast[i] = W[i,4] - common[i]</code></pre>
 python -m pip install -r reproduce/requirements.txt
 python reproduce/check_circuit.py
 python reproduce/proofs.py --check results/proofs.json
+python reproduce/check_trace.py
+python reproduce/evaluate_accuracy.py --check results/accuracy.json
 node --test reproduce/browser.spec.mjs</code></pre>
   <p>The two exact claims need only Python’s standard library. The circuit program needs NumPy; browser recurrence tests use Node. Records: <a href="results/proofs.json">proofs</a>, <a href="results/examples.json">fixed examples</a>, <a href="results/circuit-check.json">circuit checks</a>.</p>
   <p>Exact proofs interpret stored binary weights as rationals. Floating-point reconstruction uses a declared absolute tolerance. Field recovery can leave tiny positive decoded activities at closed physical gates; generated preactivation signs define events. Numerical agreement is distinct from an exact machine-arithmetic proof.</p>
 
   <h2 id="validation">Recorded intervention study</h2>
-  <p>The <a href="results/evidence.json">evidence summary</a> preserves a larger nine-profile study: both signs at inputs 0, 8 and 9; one positive physical-neuron-14 lift after six inputs; and both signs of a persistent <code>W[5,5]</code> edit. Its full implementation is separate from this small reproduction kit.</p>
+  <p>The <a href="results/evidence.json">evidence summary</a> preserves a larger nine-profile study: both signs at inputs 0, 8 and 9; one positive physical-neuron-14 lift after six inputs; and both signs of a persistent <code>W[5,5]</code> edit. The underlying reports and full verifier are outside this repository; the figures below are archived summary results, not independently reproducible evidence from this kit.</p>
   <table>
     <thead><tr><th>Amended cohort</th><th>Result</th></tr></thead>
     <tbody>

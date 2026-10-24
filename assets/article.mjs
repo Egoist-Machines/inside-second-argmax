@@ -1,4 +1,4 @@
-import {recordExample, writeExample} from './model.mjs';
+import {recordExample, traceExample, writeExample} from './model.mjs?v=3';
 
 const $ = selector => document.querySelector(selector);
 const signed = value => Math.abs(value) < 1e-12 ? '0' : `${value > 0 ? '+' : '−'}${Math.abs(value).toFixed(3)}`;
@@ -40,6 +40,21 @@ async function initialise() {
   const response = await fetch(new URL('../results/model.json', import.meta.url));
   if (!response.ok) throw new Error('The checkpoint data could not be loaded.');
   const model = await response.json();
+  const traceEndpoints = [traceExample(model, .25), traceExample(model, 2)];
+  const traceValues = traceEndpoints.flatMap(item => [item.comparisonMargin, item.otherMargin, item.margin]);
+  const traceLow = Math.min(0, ...traceValues) * 1.1;
+  const traceHigh = Math.max(0, ...traceValues) * 1.1;
+
+  function updateTrace() {
+    const isRecord = $('input[name="trace-case"]:checked').value === 'record';
+    const result = traceEndpoints[Number(isRecord)];
+    $('#trace-chart').replaceChildren(
+      row('Comparisons', result.comparisonMargin, traceLow, traceHigh),
+      row('Other neurons', result.otherMargin, traceLow, traceHigh),
+      row('Total', result.margin, traceLow, traceHigh));
+    $('#trace-selection').textContent = `Selects position ${result.prediction}, value ${result.inputs[result.prediction]}.`;
+  }
+
   const fullWrite = writeExample(model, 1);
   if (!fullWrite.reserve.every(item => item.pre >= 0)) throw new Error('The saved write example does not satisfy its carrier premise.');
   const writeMax = Math.max(...fullWrite.gains.map(item => item.gain)) * 1.06;
@@ -73,12 +88,14 @@ async function initialise() {
   $('#retention').addEventListener('input', updateWrite);
   $('#offer').addEventListener('input', updateRecord);
   document.querySelectorAll('input[name="offer-case"]').forEach(input => input.addEventListener('change', updateRecord));
+  document.querySelectorAll('input[name="trace-case"]').forEach(input => input.addEventListener('change', updateTrace));
+  updateTrace();
   updateWrite();
   updateRecord();
 }
 
 initialise().catch(error => {
-  for (const id of ['#write-chart', '#record-chart']) {
+  for (const id of ['#trace-chart', '#write-chart', '#record-chart']) {
     const message = document.createElement('p');
     message.className = 'load-error';
     message.textContent = error.message;

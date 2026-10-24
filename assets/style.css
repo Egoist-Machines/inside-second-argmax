@@ -42,6 +42,12 @@ input[type=range][hidden]{display:none}
 .case-picker label{display:flex;align-items:center;gap:6px;cursor:pointer}
 input[type=radio]{accent-color:var(--comparison);margin:0}
 .chart-caption{font:14px/1.4 system-ui,sans-serif;margin:0 0 16px}
+.trace-history{font:15px/1.65 system-ui,sans-serif;margin:0 0 20px}
+.trace-history code{font-size:.9em}
+.case-picker legend{font-weight:600;padding:0;margin-bottom:10px}
+.trace-chart .bar-row{grid-template-columns:120px minmax(0,1fr) 66px}
+.trace-chart .bar-track{background:none}
+.trace-result{font:15px/1.5 system-ui,sans-serif;margin:20px 0 0}
 .policy-chart{gap:17px}
 .policy-chart .bar-row{grid-template-columns:154px minmax(0,1fr) 68px}
 .policy-chart .bar-track{background:none;border-left:1px solid var(--line)}

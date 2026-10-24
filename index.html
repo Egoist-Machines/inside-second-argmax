@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A circuit account of ARC's 432-parameter recurrent network, with two causal experiments and exact conditional proofs.">
   <title>Inside a second-argmax network</title>
-  <link rel="stylesheet" href="assets/style.css?v=3">
-  <script type="module" src="assets/article.mjs?v=1"></script>
+  <link rel="stylesheet" href="assets/style.css?v=4">
+  <script type="module" src="assets/article.mjs?v=3"></script>
 </head>
 <body>
 <main>
@@ -16,7 +16,7 @@
   </header>
 
   <p>Given ten real numbers, return the position of the second largest.</p>
-  <p><a href="https://www.alignment.org/blog/algzoo-uninterpreted-models-with-fewer-than-1-500-parameters/">ARC trained a recurrent network</a> to do this with sixteen ReLU neurons and 432 weights. Its <code>example_2nd_argmax()</code> checkpoint achieves about 95.3% accuracy on standard Gaussian inputs. It has no biases:</p>
+  <p><a href="https://www.alignment.org/blog/algzoo-uninterpreted-models-with-fewer-than-1-500-parameters/">ARC trained a recurrent network</a> to do this with sixteen ReLU neurons and 432 weights. Its <code>example_2nd_argmax()</code> checkpoint achieves about <a href="technical.html#accuracy">95.3% accuracy</a> on standard Gaussian inputs. It has no biases:</p>
   <div class="equation" role="math" aria-label="h at t plus one equals ReLU of W h at t plus u x at t. Initial state zero. Scores equal V h after ten inputs.">
     <span><b>h</b><sub>t+1</sub> = ReLU(<b>W h</b><sub>t</sub> + <b>u</b>x<sub>t</sub>)</span>
     <span><b>h</b><sub>0</sub> = 0</span>
@@ -28,27 +28,43 @@
   <p>As inputs arrive, the network builds evidence for their positions. Delayed writes strengthen candidates, and recurrent activity carries older evidence forward. Learned comparisons usually lower the score at the maximum’s position, allowing a strong runner-up to win.</p>
   <p>When a new maximum arrives, those comparisons can release the old maximum from suppression, exposing it as the new runner-up. A record response also penalizes the new maximum’s own position. Learned thresholds and limited write supply can cause these signals to favor the wrong rank.</p>
 
+  <figure class="experiment" id="successful-trace">
+    <p class="trace-history">First nine inputs: <code>[1,0,0,0,0,0,0,0.5,0]</code>. Position 0 holds the maximum, 1; position 7 holds the runner-up, 0.5.</p>
+    <fieldset class="case-picker">
+      <legend>Final input</legend>
+      <label><input type="radio" name="trace-case" value="low" checked>0.25</label>
+      <label><input type="radio" name="trace-case" value="record">2 (new maximum)</label>
+    </fieldset>
+    <p class="chart-caption">Score 0 − score 7</p>
+    <div id="trace-chart" class="bar-chart trace-chart" aria-label="Comparison, other-neuron and total contributions to score zero minus score seven"></div>
+    <p class="trace-result"><output id="trace-selection" aria-live="polite"></output></p>
+    <figcaption>With a final input of 2, all four comparisons close, removing their suppression of position 0. <a href="technical.html#record-switch">Trace and control</a>.</figcaption>
+    <noscript><p>Final input 0.25 selects position 7; final input 2 selects position 0. Both are correct. <a href="results/successful-trace.json">Recorded scores</a>.</p></noscript>
+  </figure>
+
   <figure class="circuit-figure">
-    <img src="assets/recurrent.svg" width="640" height="220" alt="The sixteen neurons in native order at two consecutive updates, connected by their two largest incoming recurrent weights. Solid arrows are positive and dashed arrows negative.">
+    <img src="assets/recurrent.svg?v=2" width="640" height="220" alt="The sixteen neurons in native order at two consecutive updates. Dark dashed red paths show candidate neuron 5 inhibiting all eight carriers; faint paths show each neuron's two largest incoming recurrent weights.">
     <ul class="legend" aria-label="Neuron roles">
       <li><i class="carrier"></i>Carriers</li>
       <li><i class="comparison"></i>Comparisons</li>
       <li><i class="memory"></i>Carry / record</li>
       <li><i class="candidate"></i>Candidate / relay</li>
     </ul>
-    <figcaption>Recurrent weights in native neuron order. The two largest-magnitude inputs to each neuron are shown: solid positive, dashed negative.</figcaption>
+    <figcaption>Darker dashed paths show candidate 5 inhibiting the eight carriers. Faint paths show the two largest recurrent inputs to each neuron. Solid positive, dashed negative.</figcaption>
   </figure>
 
   <h2>A write is also feedback</h2>
   <p>Four comparisons, neurons 1, 6, 7 and 8, measure an arriving input against learned thresholds. Their shared activity and differences contribute to both admission and output scores. Neuron 2 carries maximum-like history; neuron 4 produces a graded record increment.</p>
-  <p>A stored cutoff produces candidate amplitude in neuron 5. A candidate produced while reading input <i>t</i> tags input <i>t</i>−1; it writes at the following update by inhibiting eight carriers. The carriers transport positional evidence, receive record refill and lose activity to the old candidate. Neuron 9 supplies a separate delayed relay.</p>
+  <p>Neuron 5 forms a candidate for the preceding input. Its amplitude is proportional to <code>max(0, τ − x)</code>, where <i>τ</i> is the stored cutoff and <i>x</i> the arriving input. Lowering the cutoff reduces or closes this candidate.</p>
+  <p>The candidate writes one update later by inhibiting eight carriers. Their learned readout can turn this reduction in activity into a relative score advantage for the tagged position. In the write example below, the timing is:</p>
+  <pre><code>read x₇ → read x₈: form candidate for position 7
+        → read x₉: spend candidate</code></pre>
 
   <p>Normalize each carrier by the cost of a candidate write. Its update is then:</p>
   <pre><code>available = relu(background)
 spent = min(available, old_candidate)
 carrier_next = available - spent</code></pre>
-  <p>The background contains transport, record refill, current-input drive and the retained comparison, carry and relay contributions. Limited supply can clip a write. More candidate activity therefore need not produce a proportionally stronger positional signal.</p>
-  <p>The same carrier flows update an admission base, <i>c</i>, and the learned comparison bounds. A value/query packet and an admission level jointly generate the next candidate cutoff, <i>τ</i>. A write changes both the evidence for its address and the state that regulates later writes.</p>
+  <p>Limited supply can clip a write, so more candidate activity need not produce a proportionally stronger positional signal. Carrier activity also feeds back into comparison thresholds and an admission base, <i>c</i>, a history term used to form future cutoffs. A write changes both positional evidence and the conditions for later writes.</p>
   <p>The <a href="pseudocode.html">sixteen-state pseudocode</a> expands this update, retaining every learned filter and every output contribution. The <a href="technical.html#coordinates">coordinate map</a> connects its variables to the physical neurons.</p>
 
   <h2>One write, three consequences</h2>
@@ -61,8 +77,9 @@ carrier_next = available - spent</code></pre>
       <output id="retention-value" for="retention">100%</output>
     </div>
     <input id="retention" type="range" min="0" max="100" value="100" step="1">
+    <p class="chart-caption">Change in score 7 − score <i>j</i></p>
     <div id="write-chart" class="bar-chart" aria-label="Changes in row seven's margin against all nine other outputs"></div>
-    <p class="field-readings"><span>Δ<i>c</i> <output id="base-change"></output></span><span>Δ<i>τ</i> <output id="cutoff-change"></output></span></p>
+    <p class="field-readings"><span>Admission base Δ<i>c</i> <output id="base-change"></output></span><span>Candidate cutoff Δ<i>τ</i> <output id="cutoff-change"></output></span></p>
     <figcaption>Changes relative to erasing old neuron 5, for <code>[0.8,0,0,0,0,0,0,0.2,0,1]</code>. All three carrier reserves hold. <a href="technical.html#write-law">Exact bounds</a>.</figcaption>
     <noscript><p>The proof and fixed examples are available in the reproduction kit. JavaScript enables the controls.</p></noscript>
   </figure>
@@ -93,7 +110,7 @@ carrier_next = available - spent</code></pre>
 
   <h2>Evidence and limits</h2>
   <p>The reproduction kit checks the two claims above with rational arithmetic. It also reconstructs all 432 source coefficients from the circuit program and compares complete score trajectories with the native recurrence. <a href="technical.html#reproduce">Run the checks</a>.</p>
-  <p>A larger recorded study matched every predicted choice across 73,728 input, state and parameter edits. Its amended audit passed the technical checks but missed one predeclared coverage promise: all six input edits were certified for 40 of 58 negative-second errors; 41 were required. An earlier audit failed event labels derived from numerical recovery. Both outcomes are retained in the <a href="technical.html#validation">validation record</a>.</p>
+  <p>A separate intervention study had an original event-label failure and an amended coverage miss. Its <a href="technical.html#validation">archived summary</a> is retained separately from the checks reproduced here.</p>
   <p>This is a computational account with conditional mechanistic explanations. Dense learned calibration filters remain explicit. The account neither classifies every error nor derives an accuracy estimate meeting ARC’s criterion.</p>
 
   <footer>

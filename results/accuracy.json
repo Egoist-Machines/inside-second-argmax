@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "method": "Empirical evaluation of the native recurrence; no mechanism-based accuracy estimate",
+  "checkpoint_sha256": "498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb",
+  "model_json_sha256": "67931e9f632b1f8c489091323ae4baeba8c5d01d41cd054e9d75440f4a3798fa",
+  "script_sha256": "1f4e1d922f9479c96542c15b963fd72d459f0a7c385a21b47bd400765bc6ee79",
+  "python_version": "3.12.14",
+  "numpy_version": "2.5.4",
+  "settings": {
+    "samples": 100000,
+    "seed": 0,
+    "batch_size": 4096,
+    "rng": "numpy.random.Generator(PCG64)",
+    "distribution": "10 independent N(0,1) inputs",
+    "device": "CPU",
+    "dtype": "float64",
+    "prediction": "first maximum score",
+    "target": "position of the second-largest input; no sampled input ties"
+  },
+  "inputs_sha256": "cb6ecd9193fdc1a068c808f235fc8331c5fbd080c34b58460a4db6d83ebffbfb",
+  "correct": 95288,
+  "errors": 4712,
+  "accuracy": 0.95288,
+  "accuracy_wilson_95": [
+    0.9515491956557437,
+    0.9541760112834031
+  ]
+}

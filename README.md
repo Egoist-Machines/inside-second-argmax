@@ -1,6 +1,6 @@
 # Inside a second-argmax network
 
-A circuit account of ARC’s 432-parameter recurrent network. The article explains candidate writes, carrier supply and admission feedback through two interactive examples. Rational checks establish conditional source effects and a false-record error family.
+A circuit account of ARC’s 432-parameter recurrent network. A successful record switch introduces its ranking strategy; two causal experiments explain candidate writes and a false-record error. Rational checks establish the two conditional claims.
 
 ## Read
 
@@ -20,11 +20,14 @@ python3.12 -m venv .venv
 python -m pip install -r reproduce/requirements.txt
 python reproduce/check_circuit.py
 python reproduce/proofs.py --check results/proofs.json
+python reproduce/check_trace.py
+python reproduce/evaluate_accuracy.py --check results/accuracy.json
 node --test reproduce/browser.spec.mjs
 ```
 
 - [Circuit program](reproduce/circuit.py): sixteen stored coordinates, complete learned filters and all output scores.
 - [Exact proofs](reproduce/proofs.py): supplied-write effects against every rival and the false-record family, including its true-record control.
+- [Successful trace](reproduce/check_trace.py) and [accuracy evaluation](reproduce/evaluate_accuracy.py): fixed native runs and a seeded 100,000-sequence estimate.
 - [Selected results](results/): pinned weights, derived tables, fixed examples, proof records and validation scope.
 
 All 432 parameters are accounted for. Mechanistic claims are conditional; dense learned filters remain, and the account does not classify every error or derive task accuracy. A separate intervention study had an original event-label audit failure and an amended coverage miss. Both are recorded in [evidence.json](results/evidence.json); that larger study is not rerun by this kit.

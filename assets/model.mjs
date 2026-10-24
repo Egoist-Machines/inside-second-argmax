@@ -48,6 +48,18 @@ export function recordExample(model, z) {
     margin: result.scores[target] - result.scores[rival], scores: result.scores, target, rival}));
 }
 
+export function traceExample(model, lastInput) {
+  const inputs = [1, 0, 0, 0, 0, 0, 0, 0.5, 0, lastInput];
+  const result = forward(model, inputs);
+  const parts = Array.from({length: 16}, (_, i) =>
+    (model.readout[0][i] - model.readout[7][i]) * result.hidden[i]);
+  return {...result, inputs,
+    comparisonMargin: parts.reduce((sum, value, i) => sum + (COMPARATORS.includes(i) ? value : 0), 0),
+    otherMargin: parts.reduce((sum, value, i) => sum + (COMPARATORS.includes(i) ? 0 : value), 0),
+    margin: result.scores[0] - result.scores[7]
+  };
+}
+
 export function writeExample(model, retention) {
   const prefix = [0.8, 0, 0, 0, 0, 0, 0, 0.2, 0];
   const old = forward(model, prefix).hidden;
