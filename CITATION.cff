@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "To cite this work, use the following metadata."
+title: "Inside a second-argmax network"
+type: software
+authors:
+  - family-names: Khachaturov
+    given-names: David
+license: MIT-0

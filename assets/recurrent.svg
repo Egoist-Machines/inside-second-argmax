@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" role="img" aria-labelledby="title desc">
+<title id="title">The sixteen-neuron recurrent state</title>
+<desc id="desc">Neurons zero through fifteen at two consecutive updates. Arrows show the two largest-magnitude recurrent weights into each receiving neuron. Solid lines are positive; dashed lines are negative. Colours identify carriers, comparisons, carry and record, and delayed candidate and relay.</desc>
+<defs>
+<marker id="carrier" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5" fill="#447a9c"/></marker>
+<marker id="comparison" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5" fill="#497963"/></marker>
+<marker id="memory" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5" fill="#a17b38"/></marker>
+<marker id="candidate" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5" fill="#b05e4d"/></marker>
+</defs>
+<path d="M402.00 63 C402.00 103,75.00 127,75.00 167" fill="none" stroke="#b05e4d" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#candidate)" data-source="9" data-target="0" data-weight="-1.4237356185913086"/>
+<path d="M293.00 63 C293.00 103,75.00 127,75.00 167" fill="none" stroke="#497963" stroke-width=".9" opacity=".7" marker-end="url(#comparison)" data-source="6" data-target="0" data-weight="1.1327556371688843"/>
+<path d="M329.33 63 C329.33 103,111.33 127,111.33 167" fill="none" stroke="#497963" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#comparison)" data-source="7" data-target="1" data-weight="-1.0476715564727783"/>
+<path d="M293.00 63 C293.00 103,111.33 127,111.33 167" fill="none" stroke="#497963" stroke-width=".9" opacity=".7" marker-end="url(#comparison)" data-source="6" data-target="1" data-weight="0.9953998327255249"/>
+<path d="M220.33 63 C220.33 103,147.67 127,147.67 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" marker-end="url(#memory)" data-source="4" data-target="2" data-weight="1.7307186126708984"/>
+<path d="M147.67 63 C147.67 103,147.67 127,147.67 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" marker-end="url(#memory)" data-source="2" data-target="2" data-weight="0.9688376188278198"/>
+<path d="M75.00 63 C75.00 103,184.00 127,184.00 167" fill="none" stroke="#447a9c" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#carrier)" data-source="0" data-target="3" data-weight="-1.2293846607208252"/>
+<path d="M111.33 63 C111.33 103,184.00 127,184.00 167" fill="none" stroke="#497963" stroke-width=".9" opacity=".7" marker-end="url(#comparison)" data-source="1" data-target="3" data-weight="1.1952526569366455"/>
+<path d="M220.33 63 C220.33 103,220.33 127,220.33 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#memory)" data-source="4" data-target="4" data-weight="-0.9856111407279968"/>
+<path d="M147.67 63 C147.67 103,220.33 127,220.33 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#memory)" data-source="2" data-target="4" data-weight="-0.492309033870697"/>
+<path d="M220.33 63 C220.33 103,256.67 127,256.67 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" marker-end="url(#memory)" data-source="4" data-target="5" data-weight="1.18705153465271"/>
+<path d="M365.67 63 C365.67 103,256.67 127,256.67 167" fill="none" stroke="#497963" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#comparison)" data-source="8" data-target="5" data-weight="-0.8497561812400818"/>
+<path d="M402.00 63 C402.00 103,293.00 127,293.00 167" fill="none" stroke="#b05e4d" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#candidate)" data-source="9" data-target="6" data-weight="-0.6400814652442932"/>
+<path d="M147.67 63 C147.67 103,293.00 127,293.00 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" marker-end="url(#memory)" data-source="2" data-target="6" data-weight="0.5349642634391785"/>
+<path d="M220.33 63 C220.33 103,329.33 127,329.33 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" marker-end="url(#memory)" data-source="4" data-target="7" data-weight="1.3166165351867676"/>
+<path d="M147.67 63 C147.67 103,329.33 127,329.33 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" marker-end="url(#memory)" data-source="2" data-target="7" data-weight="0.673674464225769"/>
+<path d="M329.33 63 C329.33 103,365.67 127,365.67 167" fill="none" stroke="#497963" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#comparison)" data-source="7" data-target="8" data-weight="-1.0941182374954224"/>
+<path d="M111.33 63 C111.33 103,365.67 127,365.67 167" fill="none" stroke="#497963" stroke-width=".9" opacity=".7" marker-end="url(#comparison)" data-source="1" data-target="8" data-weight="0.6339022517204285"/>
+<path d="M329.33 63 C329.33 103,402.00 127,402.00 167" fill="none" stroke="#497963" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#comparison)" data-source="7" data-target="9" data-weight="-5.03169584274292"/>
+<path d="M365.67 63 C365.67 103,402.00 127,402.00 167" fill="none" stroke="#497963" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#comparison)" data-source="8" data-target="9" data-weight="-1.091538429260254"/>
+<path d="M220.33 63 C220.33 103,438.33 127,438.33 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" marker-end="url(#memory)" data-source="4" data-target="10" data-weight="1.7551501989364624"/>
+<path d="M474.67 63 C474.67 103,438.33 127,438.33 167" fill="none" stroke="#447a9c" stroke-width=".9" opacity=".7" marker-end="url(#carrier)" data-source="11" data-target="10" data-weight="1.0963913202285767"/>
+<path d="M220.33 63 C220.33 103,474.67 127,474.67 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" marker-end="url(#memory)" data-source="4" data-target="11" data-weight="1.7147935628890991"/>
+<path d="M402.00 63 C402.00 103,474.67 127,474.67 167" fill="none" stroke="#b05e4d" stroke-width=".9" opacity=".7" marker-end="url(#candidate)" data-source="9" data-target="11" data-weight="0.6770923733711243"/>
+<path d="M220.33 63 C220.33 103,511.00 127,511.00 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" marker-end="url(#memory)" data-source="4" data-target="12" data-weight="1.277097225189209"/>
+<path d="M402.00 63 C402.00 103,511.00 127,511.00 167" fill="none" stroke="#b05e4d" stroke-width=".9" opacity=".7" marker-end="url(#candidate)" data-source="9" data-target="12" data-weight="0.8097546100616455"/>
+<path d="M620.00 63 C620.00 103,547.33 127,547.33 167" fill="none" stroke="#447a9c" stroke-width=".9" opacity=".7" marker-end="url(#carrier)" data-source="15" data-target="13" data-weight="0.6537340879440308"/>
+<path d="M547.33 63 C547.33 103,547.33 127,547.33 167" fill="none" stroke="#447a9c" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#carrier)" data-source="13" data-target="13" data-weight="-0.6050072908401489"/>
+<path d="M220.33 63 C220.33 103,583.67 127,583.67 167" fill="none" stroke="#a17b38" stroke-width=".9" opacity=".7" marker-end="url(#memory)" data-source="4" data-target="14" data-weight="0.870553195476532"/>
+<path d="M293.00 63 C293.00 103,583.67 127,583.67 167" fill="none" stroke="#497963" stroke-width=".9" opacity=".7" marker-end="url(#comparison)" data-source="6" data-target="14" data-weight="0.7650881409645081"/>
+<path d="M474.67 63 C474.67 103,620.00 127,620.00 167" fill="none" stroke="#447a9c" stroke-width=".9" opacity=".7" marker-end="url(#carrier)" data-source="11" data-target="15" data-weight="1.2795950174331665"/>
+<path d="M438.33 63 C438.33 103,620.00 127,620.00 167" fill="none" stroke="#447a9c" stroke-width=".9" opacity=".7" stroke-dasharray="3 3" marker-end="url(#carrier)" data-source="10" data-target="15" data-weight="-1.0929720401763916"/>
+<text x="4" y="55" font-family="Georgia,serif" font-size="17" fill="#232826">hₜ</text>
+<circle cx="75.00" cy="50" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="75.00" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">0</text>
+<circle cx="111.33" cy="50" r="12" fill="#e8eee8" stroke="#497963" stroke-width="1.1"/>
+<text x="111.33" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">1</text>
+<circle cx="147.67" cy="50" r="12" fill="#f1ece2" stroke="#a17b38" stroke-width="1.1"/>
+<text x="147.67" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">2</text>
+<circle cx="184.00" cy="50" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="184.00" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">3</text>
+<circle cx="220.33" cy="50" r="12" fill="#f1ece2" stroke="#a17b38" stroke-width="1.1"/>
+<text x="220.33" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">4</text>
+<circle cx="256.67" cy="50" r="12" fill="#f3e6e0" stroke="#b05e4d" stroke-width="1.1"/>
+<text x="256.67" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">5</text>
+<circle cx="293.00" cy="50" r="12" fill="#e8eee8" stroke="#497963" stroke-width="1.1"/>
+<text x="293.00" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">6</text>
+<circle cx="329.33" cy="50" r="12" fill="#e8eee8" stroke="#497963" stroke-width="1.1"/>
+<text x="329.33" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">7</text>
+<circle cx="365.67" cy="50" r="12" fill="#e8eee8" stroke="#497963" stroke-width="1.1"/>
+<text x="365.67" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">8</text>
+<circle cx="402.00" cy="50" r="12" fill="#f3e6e0" stroke="#b05e4d" stroke-width="1.1"/>
+<text x="402.00" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">9</text>
+<circle cx="438.33" cy="50" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="438.33" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">10</text>
+<circle cx="474.67" cy="50" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="474.67" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">11</text>
+<circle cx="511.00" cy="50" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="511.00" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">12</text>
+<circle cx="547.33" cy="50" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="547.33" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">13</text>
+<circle cx="583.67" cy="50" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="583.67" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">14</text>
+<circle cx="620.00" cy="50" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="620.00" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">15</text>
+<text x="4" y="185" font-family="Georgia,serif" font-size="17" fill="#232826">hₜ₊₁</text>
+<circle cx="75.00" cy="180" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="75.00" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">0</text>
+<circle cx="111.33" cy="180" r="12" fill="#e8eee8" stroke="#497963" stroke-width="1.1"/>
+<text x="111.33" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">1</text>
+<circle cx="147.67" cy="180" r="12" fill="#f1ece2" stroke="#a17b38" stroke-width="1.1"/>
+<text x="147.67" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">2</text>
+<circle cx="184.00" cy="180" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="184.00" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">3</text>
+<circle cx="220.33" cy="180" r="12" fill="#f1ece2" stroke="#a17b38" stroke-width="1.1"/>
+<text x="220.33" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">4</text>
+<circle cx="256.67" cy="180" r="12" fill="#f3e6e0" stroke="#b05e4d" stroke-width="1.1"/>
+<text x="256.67" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">5</text>
+<circle cx="293.00" cy="180" r="12" fill="#e8eee8" stroke="#497963" stroke-width="1.1"/>
+<text x="293.00" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">6</text>
+<circle cx="329.33" cy="180" r="12" fill="#e8eee8" stroke="#497963" stroke-width="1.1"/>
+<text x="329.33" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">7</text>
+<circle cx="365.67" cy="180" r="12" fill="#e8eee8" stroke="#497963" stroke-width="1.1"/>
+<text x="365.67" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">8</text>
+<circle cx="402.00" cy="180" r="12" fill="#f3e6e0" stroke="#b05e4d" stroke-width="1.1"/>
+<text x="402.00" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">9</text>
+<circle cx="438.33" cy="180" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="438.33" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">10</text>
+<circle cx="474.67" cy="180" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="474.67" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">11</text>
+<circle cx="511.00" cy="180" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="511.00" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">12</text>
+<circle cx="547.33" cy="180" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="547.33" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">13</text>
+<circle cx="583.67" cy="180" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="583.67" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">14</text>
+<circle cx="620.00" cy="180" r="12" fill="#e5edf2" stroke="#447a9c" stroke-width="1.1"/>
+<text x="620.00" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#232826">15</text>
+</svg>

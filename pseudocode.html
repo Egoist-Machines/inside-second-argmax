@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The full sixteen-state update: comparison, delayed writes, carrier history, admission and all ten scores.">
+  <title>Sixteen-state pseudocode</title>
+  <link rel="stylesheet" href="assets/style.css?v=3">
+</head>
+<body>
+<main class="technical pseudocode">
+  <p><a href="index.html">Return to article</a></p>
+  <h1>Sixteen-state pseudocode</h1>
+  <p>One update generates comparisons, admission, carrier history and all ten scores. The learned filters remain explicit. This is the computation in the <a href="reproduce/circuit.py">NumPy program</a>, with coefficients in <a href="results/circuit.json">circuit.json</a>.</p>
+
+  <h2 id="state">State and notation</h2>
+  <p>The stored bank has sixteen coordinates. The four additional readings below are recovered from that same bank, not retained in another cache. The <a href="technical.html#coordinates">coordinate map and numerical recovery convention</a> connect these fields to physical neurons.</p>
+  <pre><code>state = (c, H, L, tau, w16, w87, a, b,
+         z0, z3, z10, z11, z12, z13, z14, z15)
+P = (0,3,10,11,12,13,14,15)
+Q = (0,1,2,3,6,7,8,10,11,12,13,14,15)
+J = (0,2,3,10,11,12,13,14,15)
+
+G, G9 = candidate_scale, relay_scale
+M, u4 = memory_scale, record_input_scale
+(s1,s6,s7,s8) = comparator_scales
+cost, refill = candidate_cost, record_refill</code></pre>
+  <p>Names such as <code>memory_history</code> and <code>base_phase</code> are fixed tables with those exact keys. Carrier vectors follow P; <code>z[10]</code> names physical carrier 10. Parenthesized vectors concatenate their entries. Products and min/max on vectors act componentwise unless marked as a dot or matrix product.</p>
+
+  <h3 id="reading">Read the same bank</h3>
+  <pre><code>def read(state):
+    (c,H,L,tau,w16,w87,a,b,z) = unpack(state)
+    known = (0,0,0,w16,w87,0,a,b,z)
+    (m,d,q,v) = field_inverse @ (
+        (c,H,L,tau) - field_rows @ known)
+    g = (v-w16/2, v+w16/2, -w87)
+    f = (m,d,q,g,a,b)
+    p = (m,d,q,w16,w87,v,a,b)
+    return (m,d,q,v,g,f,p,z)</code></pre>
+  <p>Here g is ordered as comparisons 1, 6 and 8. The readings H and L define learned bounds; neither is an oracle order statistic. All unsuffixed names below refer to the old state. New values have suffix <code>_n</code> and are committed together.</p>
+  <pre><code>state = zeros(16)
+for x in the ten inputs:
+    state, scores = step(state, x)
+return first_argmax(scores)</code></pre>
+
+  <h2 id="compare">1. Compare and produce delayed amplitudes</h2>
+  <p>The following blocks form <code>step(old_state,x)</code>. The current candidate uses the old cutoff; carrier spending later in this update still uses old a.</p>
+  <pre><code>(c,H,L,tau,w16,w87,a,b,z) = unpack(old_state)
+(m,d,q,v,g,f,p,z) = read(old_state)
+r = H + L/2 - x
+d_pre = x - H + L/2
+q_n, d_n = relu(r), relu(d_pre)
+m_pre = (memory_pair @ (m,d)
+         + memory_history @ (f,z) + memory_input*x)
+m_n = relu(m_pre)
+
+(width,offset,centre) = (
+    width_intrinsic @ (w16,w87,v)
+    + width_controls @ (m,d,q,a,b) + width_capacity @ z)
+delta = (centre-width/2, centre+width/2, -offset)
+cap_plus, cap_minus = relu(delta), relu(-delta)
+clip_plus = min(relu(r), cap_plus)
+clip_minus = min(relu(-r), cap_minus)
+g_n = clip_plus - (cap_minus-clip_minus)
+cap_return = -(cap_plus-clip_plus) + clip_minus
+(g1_n,g6_n,g8_n) = g_n
+widths_n = (g6_n-g1_n, -g8_n, (g1_n+g6_n)/2)
+
+a_n = input5_abs/G * relu(tau-x)
+relay_drive = relay_budget @ (f,z) + relay_input*x
+b_n = relu(relu(relu(relay_drive)-relay_deficit*q)
+           - relay_self*b)</code></pre>
+
+  <h2 id="carriers">2. Transport, replenish and spend</h2>
+  <p>The eight carriers keep the pool, coupled 3/15 pair, two record ports and three linked reservoirs. Both record-port coordinates and every incoming source remain.</p>
+  <pre><code>port10, port11 = z[10]/refill[10], z[11]/refill[11]
+ports = ((port10+port11)/2, port11-port10)
+transport[0] = pool_weights @ z
+transport[3,15] = (
+    pulse_internal @ z[3,15] + pulse_pool*z[0]
+    + pulse_triad @ z[12,13,14] + pulse_ports @ ports)
+transport[12,13,14] = (
+    triad_internal @ z[12,13,14]
+    + triad_outer @ z[0,3,15] + triad_ports @ ports)
+pair_return = pair_internal @ ports
+pair_return += pair_outer @ z[0,3,12,13,14,15]
+transport[10] = refill[10]*(pair_return[0]-pair_return[1]/2)
+transport[11] = refill[11]*(pair_return[0]+pair_return[1]/2)
+
+memory = source_profiles[:,0]*m
+query = source_profiles[:,2]*q
+phase = source_profiles[:,3:6] @ g
+relay = source_profiles[:,7]*b
+input_drive = input_profile*x
+record_refill_drive = refill*d
+background = transport + memory + query + phase
+background += relay + input_drive + record_refill_drive
+available = relu(background)
+floor = relu(-background)
+spent = min(available, a)
+z_n = available-spent
+flow = (transport-z + memory + query + phase + relay
+        + input_drive + record_refill_drive + floor-spent)</code></pre>
+  <p>This is the full algebraic carrier update. The implementation evaluates the 10/11 rectifiers through their common and difference ports in a fixed arithmetic order; it retains the same two outputs and all sources. No averaged reservoir replaces the pair.</p>
+
+  <h2 id="admission">3. Generate the packet, level and next cutoff</h2>
+  <p>Floors use physical proposal units. The new level reads old c. Current events are the actual newly generated record, candidate and relay amplitudes.</p>
+  <pre><code>pre[2], pre[4], pre[7] = M*m_pre, u4*d_pre, s7*r
+pre[1,6,8] = (s1,s6,s8)*(r-delta)
+pre[P] = cost*(background-a)
+pre[5] = input5_abs*(tau-x)
+pre[9] = G9*(relay_drive-relay_deficit*q-relay_self*b)
+F = zeros(16)
+F[Q] = relu(-pre[Q])
+events = (u4*d_n, G*a_n, G9*b_n)
+
+old_query = q-m + old_query_residual @ (p,z)
+echo = (query_retention*old_query + context_return @ (p,z)
+        + old_event_echo @ (d,a,b))
+lower = H+L/2-q_n
+signed_query = -lower + high_excess*relu(-r)
+signed_query += -cap_gains @ cap_return + echo
+signed_query += query_floor_gains @ F[J]
+level = (1-level_mix)*c + level_mix*x - echo
+level += level_floor_gains @ F[Q] + level_event_gains @ events
+packet = -signed_query
+tau_n = inverse_price*(packet-level)</code></pre>
+
+  <h2 id="history">4. Advance the shared history</h2>
+  <p>The same resource flow that produced z_n also updates c, H and L. Each innovation has a fixed source row.</p>
+  <pre><code>p_n = (m_n,d_n,q_n,widths_n,a_n,b_n)
+innovation = p_n-p
+continuation = m_n-m-d
+L_n = L + corridor_read @ (innovation,flow)
+H_n = H+d_n+continuation
+H_n += midpoint_residual @ (innovation,flow)
+c_n = c + (base_alpha+base_beta)*d - base_beta*d_n
+c_n += base_kq*(q-q_n) + base_kappa*(a_n-a)
+c_n += base_alpha*continuation
+c_n += base_phase @ (widths_n-(w16,w87,v))
+c_n += base_relay*(b_n-b) + base_capacity @ flow
+state_n = (c_n,H_n,L_n,tau_n,widths_n[0],widths_n[1],
+           a_n,b_n,z_n)</code></pre>
+
+  <h2 id="head">5. Compare all ten scores</h2>
+  <p>Read the committed bank. The head retains carry, record, query, candidate, relay and every carrier contribution. The scalar common term is added to all ten outputs.</p>
+  <pre><code>(m_a,d_a,q_a,v_a,g_a,f_a,p_a,z_a) = read(state_n)
+a_a, b_a = f_a[6], f_a[7]
+background_scores = readout_carry*m_a + readout_record*d_a
+background_scores += readout_query*q_a + readout_candidate*a_a
+background_scores += readout_relay*b_a + readout_capacity @ z_a
+common = readout_common @ g_n
+contrast = -debt_weights @ g_n
+realization = readout_E @ (g_a-g_n)
+scores = background_scores + common + contrast + realization
+return state_n, scores</code></pre>
+  <p>Each of the three signed clips in g_n remains separate. Their dispersion correction J is therefore implicit; a merged-cap approximation would need to restore it. All row-dependent background terms remain in the comparison.</p>
+
+  <footer><p><a href="index.html">Return to article</a> · <a href="reproduce/circuit.py">Executable program</a> · <a href="results/circuit.json">Coefficient tables</a></p></footer>
+</main>
+</body>
+</html>

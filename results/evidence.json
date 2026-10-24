@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "checkpoint_sha256": "498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb",
+  "files": {
+    "model.json": {
+      "sha256": "67931e9f632b1f8c489091323ae4baeba8c5d01d41cd054e9d75440f4a3798fa"
+    },
+    "circuit.json": {
+      "sha256": "c98490459ff4c27f7ad734d362960da03f6bf30f35f657ff1e8e73e9e35490fe"
+    },
+    "circuit-check.json": {
+      "sha256": "e1386f23bf2307b592fe2cecd46cc33e6af2ed0563951e4594411fd1a9765533"
+    },
+    "proofs.json": {
+      "sha256": "55338efd68d3d397a45620b123d6e469faa47335209c9d8e87c67cebdd7ade0e"
+    },
+    "examples.json": {
+      "sha256": "8164b60031ff8715ee14301a15f6dde7f0f4fc8f5f15d0184c85d8cbb7218462"
+    }
+  },
+  "source_reconstruction": {
+    "status": "PASS",
+    "state_coordinates": 16,
+    "parameter_count": 432,
+    "absolute_tolerance": 1e-09,
+    "coefficient_contexts": 90,
+    "all432_coefficients_within_tolerance": true,
+    "fixed_regression_sequences": 26,
+    "already_used_archived_sequences": 16384,
+    "all_archived_prefix_choices_match": true,
+    "all_archived_source_proposal_signs_and_zeros_match": true,
+    "maximum_archived_score_error": 5.567102334680385e-12,
+    "numerical_scope": "Float64 agreement within the declared budget, not bitwise equivalence or a universal error bound. Recovered physical readings can have tiny positive residues at native zeros; event labels use generated source-preactivation signs without an epsilon.",
+    "verifier": "reproduce/check_circuit.py",
+    "report": "results/circuit-check.json",
+    "maximum_recovered_magnitude_at_native_zero": 2.23470273474406e-13,
+    "raw_recovered_activity_differences": [
+      {
+        "seed": 20270667,
+        "differences": 75162
+      },
+      {
+        "seed": 20270668,
+        "differences": 75898
+      }
+    ]
+  },
+  "exact_checks": {
+    "status": "PASS",
+    "verifier": "reproduce/proofs.py",
+    "proof": "results/proofs.json",
+    "claims": [
+      "Complete candidate-source promotion against all nine rivals and joint c/cutoff response under three carrier reserves.",
+      "A fixed false-record interval and one matched true-record control with one receiving source cut."
+    ],
+    "arithmetic": "Standard-library Fraction on the exact binary64 checkpoint weights; every physical gate and all nine rivals retained in the stated domains."
+  },
+  "controlled_transfer": {
+    "scope": "Archived nine-profile intervention audit with 8192 Gaussian parents per cohort. Profiles, inputs, doses, floors and learned weights were not fitted after the event-label repair. This is not a population accuracy law or an exhaustive original-error explanation.",
+    "profiles": {
+      "input": "Positions0,8,9 with represented plus/minus1/32.",
+      "state": "Add physical14 candidate_cost14/64 after zero-based update5.",
+      "parameter": "Persistent W55 plus/minus1/64."
+    },
+    "original67": {
+      "seed": 20270667,
+      "status": "FAIL",
+      "parents": 8192,
+      "arms": 73728,
+      "reason": "Literal event flags were read from recovered h4 rather than generated PRE4; three event-feature comparisons disagreed.",
+      "event_disagreements": {
+        "record_activity": 88,
+        "record_false_activity": 40,
+        "quiet_old_events_zero": 67
+      },
+      "unchanged_two_cohort_confirmation": false,
+      "retrospective": "Amended event definitions passed retrospectively on already used67. This does not change its original FAIL or provide fresh confirmation.",
+      "source_record_sha256": "c82569aea8ea2077ff6515d51cad076ffc6417116280703268b0b4f38bc0b8f4"
+    },
+    "amended68": {
+      "seed": 20270668,
+      "technical_status": "PASS",
+      "breadth_status": "FAIL",
+      "parents": 8192,
+      "arms": 73728,
+      "point_choices_match": 73728,
+      "all_prefix_choice_mismatches": 0,
+      "source_proposal_mask_mismatches": 0,
+      "source_zero_mismatches": 0,
+      "score_tie_mismatches": 0,
+      "all_rival_certificates": {
+        "certified": 70791,
+        "unknown": 2937,
+        "false": 0
+      },
+      "changed_choices": {
+        "actual": 743,
+        "certified": 515
+      },
+      "failed_floor": {
+        "name": "certificate/negative_second_error/INPUT",
+        "numerator": 40,
+        "denominator": 58,
+        "required": 41,
+        "percent": 70,
+        "meaning": "Every one of the six input arms needs a certificate against all nine rivals, for each originally wrong parent whose original second value is negative."
+      },
+      "other_floors_passed": 31,
+      "classes": {
+        "correct": 7792,
+        "third": 255,
+        "other": 145
+      },
+      "maximum_raw_score_error": 5.8903992794512305e-12,
+      "report_sha256": "0bcd5f693fcc3dd70f2d1d79ca211ce13b2e1304d60208393ba7945ff5c9646e",
+      "audit_sha256": "9003f9ae3401b5c40fe0b6872043843ac7f3368fa6f97aa11f562a9a6c597b40"
+    },
+    "interpretation": "Technical fidelity and certificate validity passed; one predeclared finite-cohort breadth commitment failed. Unknown means uncertified, not a false prediction. Arms share parents and are not independent samples."
+  },
+  "limits": [
+    "The executable account retains 16 states and learned history filters. Mapping all parameters does not make every computation semantically understood.",
+    "The two exact claims have explicit local premises and do not yield an ideal sorting recursion, a task-accuracy formula or an exhaustive error-cause classification."
+  ]
+}
