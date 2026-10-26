@@ -4,11 +4,15 @@ A circuit account of ARC’s 432-parameter recurrent network. A successful recor
 
 ## Read
 
+[Article](https://egoistmachines.com/research/inside-second-argmax/) · [Pseudocode](https://egoistmachines.com/research/inside-second-argmax/pseudocode.html) · [Technical note](https://egoistmachines.com/research/inside-second-argmax/technical.html)
+
+To serve a local copy:
+
 ```sh
 python3 -m http.server 8901 --bind 127.0.0.1
 ```
 
-Open [localhost:8901](http://127.0.0.1:8901/). No build step or external assets. [Pseudocode](pseudocode.html) · [Technical note](technical.html).
+Open [localhost:8901](http://127.0.0.1:8901/). No build step or external assets.
 
 ## Reproduce
 
@@ -39,10 +43,12 @@ All 432 parameters are accounted for. Mechanistic claims are conditional; dense 
   author = {Khachaturov, David},
   title = {Inside a second-argmax network},
   year = {2026},
-  howpublished = {Code and research note}
+  date = {2026-10-26},
+  howpublished = {Code and research note},
+  url = {https://egoistmachines.com/research/inside-second-argmax/}
 }
 ```
 
-[BibTeX](CITATION.bib) · [Citation metadata](CITATION.cff)
+[BibTeX](CITATION.bib) · [Citation metadata](CITATION.cff) · [Issues and comments](https://github.com/Egoist-Machines/inside-second-argmax/issues)
 
 Model and original analysis: [Alignment Research Center](https://github.com/alignment-research-center/alg-zoo) and Zihao Chen. David Khachaturov · [MIT-0](LICENSE) · [Sources](NOTICE.md).

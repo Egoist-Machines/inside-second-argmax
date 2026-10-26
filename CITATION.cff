@@ -5,4 +5,7 @@ type: software
 authors:
   - family-names: Khachaturov
     given-names: David
+date-released: 2026-10-26
+url: "https://egoistmachines.com/research/inside-second-argmax/"
+repository-code: "https://github.com/Egoist-Machines/inside-second-argmax"
 license: MIT-0
