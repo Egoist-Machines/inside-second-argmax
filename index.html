@@ -29,11 +29,16 @@
     <span><b>h</b><sub>0</sub> = 0</span>
     <span><b>s</b> = <b>V h</b><sub>10</sub></span>
   </div>
-  <p>The largest score selects an input position, indexed from zero. We present a parameter-level circuit account of all sixteen neurons and 432 weights, with <a href="pseudocode.html">pseudocode</a> and exact conditional explanations of candidate writes and rank errors.</p>
+  <p>The largest score selects an input position, indexed from zero. The <a href="pseudocode.html">pseudocode</a> follows how all sixteen neurons and 432 weights produce those scores. The experiments below isolate how a candidate write promotes an input and how a false record produces a rank error.</p>
 
   <h2 id="overview">How it finds the runner-up</h2>
   <p>As inputs arrive, the network builds evidence for their positions. Delayed writes strengthen candidates, and recurrent activity carries older evidence forward. Learned comparisons usually lower the score at the maximum’s position, allowing a strong runner-up to win.</p>
   <p>When a new maximum arrives, those comparisons can release the old maximum from suppression, exposing it as the new runner-up. A record response also penalizes the new maximum’s own position. Learned thresholds and limited write supply can cause these signals to favor the wrong rank.</p>
+
+  <figure class="circuit-figure" id="circuit-overview">
+    <img src="assets/circuit-overview.svg?v=1" width="741" height="294" alt="Functional routes through the circuit: maximum-like history drives comparisons, delayed signals feed position carriers, and both routes contribute to the output. Carrier history also feeds back into comparison thresholds.">
+    <figcaption>Arrows summarize connections between neuron groups; the wiring diagram below shows individual weights.</figcaption>
+  </figure>
 
   <figure class="experiment" id="successful-trace">
     <p class="trace-history">First nine inputs: <code>[1,0,0,0,0,0,0,0.5,0]</code>. Position 0 holds the maximum, 1; position 7 holds the runner-up, 0.5.</p>
@@ -61,7 +66,7 @@
   </figure>
 
   <h2>A write is also feedback</h2>
-  <p>Four comparisons, neurons 1, 6, 7 and 8, measure an arriving input against learned thresholds. Their shared activity and differences contribute to both admission and output scores. Neuron 2 carries maximum-like history; neuron 4 produces a graded record increment.</p>
+  <p>Neurons 1, 6, 7 and 8 compare each arriving input with learned thresholds. Their shared activity and their differences help determine which inputs become candidates and how positions are scored. They draw on neuron 2, which carries an approximation to the maximum, and neuron 4, which responds by varying amounts when an input crosses a learned record threshold.</p>
   <p>Neuron 5 forms a candidate for the preceding input. Its amplitude is proportional to <code>max(0, τ − x)</code>, where <i>τ</i> is the stored cutoff and <i>x</i> the arriving input. Lowering the cutoff reduces or closes this candidate.</p>
   <p>The candidate writes one update later by inhibiting eight carriers. Their learned readout can turn this reduction in activity into a relative score advantage for the tagged position. In the write example below, the timing is:</p>
   <pre><code>read x₇ → read x₈: form candidate for position 7
@@ -72,11 +77,11 @@
 spent = min(available, old_candidate)
 carrier_next = available - spent</code></pre>
   <p>Limited supply can clip a write, so more candidate activity need not produce a proportionally stronger positional signal. Carrier activity also feeds back into comparison thresholds and an admission base, <i>c</i>, a history term used to form future cutoffs. A write changes both positional evidence and the conditions for later writes.</p>
-  <p>The <a href="pseudocode.html">sixteen-state pseudocode</a> expands this update, retaining every learned filter and every output contribution. The <a href="technical.html#coordinates">coordinate map</a> connects its variables to the physical neurons.</p>
+  <p>The <a href="pseudocode.html">sixteen-state pseudocode</a> expands these steps into the complete update, including the learned filters and output contributions. Its <a href="technical.html#coordinates">coordinate map</a> connects each variable to physical neuron activity.</p>
 
   <h2>One write, three consequences</h2>
-  <p>Hold the other fifteen old activities and the receiving input fixed. Compare retaining a positive candidate with erasing it. If receiving carriers 0, 14 and 15 stay supplied at the larger candidate endpoint, the trained weights guarantee three changes: the tagged row gains against all nine rivals, <i>c</i> increases, and <i>τ</i> decreases. The other thirteen receiving gates may change.</p>
-  <p>In this example the write arrives at the tenth update, so row 7 is input position 7. The base and cutoff are readings of the resulting state.</p>
+  <p>To isolate a write, compare keeping a positive candidate with erasing it while holding the other fifteen old activities and the receiving input fixed. If carriers 0, 14 and 15 have nonnegative preactivations at the larger candidate endpoint, the trained weights guarantee three changes: the tagged position gains against all nine rivals, the admission base <i>c</i> rises, and the cutoff <i>τ</i> falls. This holds even if any of the other thirteen receiving ReLUs changes state.</p>
+  <p>Here the write arrives at the tenth update and promotes input position 7. The displayed changes in the base and cutoff are computed from the state after that update.</p>
 
   <figure class="experiment" id="write-example">
     <div class="control-line">
@@ -91,7 +96,7 @@ carrier_next = available - spent</code></pre>
     <noscript><p>The proof and fixed examples are available in the reproduction kit. JavaScript enables the controls.</p></noscript>
   </figure>
 
-  <p>This promotion does not establish that the tagged input is second largest. Here input 7 is below the runner-up at input 0. The write law explains a consequence of admission, not whether that admission is correct.</p>
+  <p>The write promotes position 7 even though its value, 0.2, is below the runner-up, 0.8 at position 0. A write can therefore strengthen the wrong candidate. Explaining which inputs the network admits requires understanding the thresholds that produced the write.</p>
 
   <h2>A false record leaves the maximum ahead</h2>
   <p>After inputs <code>[1,0]</code>, the learned record threshold is about 0.979. An offer near <code>511/512</code> activates record neuron 4 even though it is below the existing maximum, 1.</p>
@@ -113,12 +118,12 @@ carrier_next = available - spent</code></pre>
     <figcaption>The source is removed once, while reading input 3. Every subsequent update follows the trained recurrence. <a href="technical.html#false-record">Exact family and control</a>.</figcaption>
   </figure>
 
-  <p>The true-record control uses <code>z = 513/512</code>. Position 0 is now the correct runner-up. Removing the contrast source reduces its winning margin, while leaving its selection unchanged. The same source helps or hurts according to the history; deleting it is not a general repair.</p>
+  <p>For the true-record control, set <code>z = 513/512</code>. Position 0 is now the correct runner-up. Removing the contrast source narrows its margin over position 2 without changing the winner. The source strengthens the correct margin here even though it causes the error above. To use this cut as a repair, we would need to check how it behaves on other histories.</p>
 
   <h2>Evidence and limits</h2>
-  <p>The reproduction kit checks the two claims above with rational arithmetic. It also reconstructs all 432 source coefficients from the circuit program and compares complete score trajectories with the native recurrence. <a href="technical.html#reproduce">Run the checks</a>.</p>
-  <p>A separate intervention study had an original event-label failure and an amended coverage miss. Its <a href="technical.html#validation">archived summary</a> is retained separately from the checks reproduced here.</p>
-  <p>This is a computational account with conditional mechanistic explanations. Dense learned calibration filters remain explicit. The account neither classifies every error nor derives an accuracy estimate meeting ARC’s criterion.</p>
+  <p>The reproduction kit verifies the two conditional claims above with rational arithmetic. It also reconstructs all 432 source coefficients from the circuit program and compares its scores with the original recurrence at every update. <a href="technical.html#reproduce">Run the checks</a>.</p>
+  <p>A larger intervention study first failed an audit of its event labels. After those definitions were corrected, a separate cohort passed the technical audit but missed a coverage target. The <a href="technical.html#validation">archived summary</a> records both outcomes; reproducing that study requires its separate implementation and reports.</p>
+  <p>Several groups of learned weights still appear in the program as filters whose effects depend on input history. We still need to explain what these filters accomplish, why other rank errors occur, and how the circuit determines overall accuracy.</p>
 
   <footer>
     <p><a href="../">Research</a> · <a href="technical.html">Technical note</a> · <a href="https://github.com/Egoist-Machines/inside-second-argmax">Code</a> · <a href="https://github.com/Egoist-Machines/inside-second-argmax/issues">Issues and comments</a></p>

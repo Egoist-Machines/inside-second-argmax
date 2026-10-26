@@ -1,6 +1,6 @@
 # Inside a second-argmax network
 
-A circuit account of ARC’s 432-parameter recurrent network. A successful record switch introduces its ranking strategy; two causal experiments explain candidate writes and a false-record error. Rational checks establish the two conditional claims.
+This repository traces how ARC’s 432-parameter recurrent network returns the second-largest input’s position. The article follows a successful record switch, then isolates how a candidate write changes positional evidence and how a false record causes a rank error. The two causal claims are verified with rational arithmetic under the conditions stated in the article.
 
 ## Read
 
@@ -34,7 +34,7 @@ node --test reproduce/browser.spec.mjs
 - [Successful trace](reproduce/check_trace.py) and [accuracy evaluation](reproduce/evaluate_accuracy.py): fixed native runs and a seeded 100,000-sequence estimate.
 - [Selected results](results/): pinned weights, derived tables, fixed examples, proof records and validation scope.
 
-All 432 parameters are accounted for. Mechanistic claims are conditional; dense learned filters remain, and the account does not classify every error or derive task accuracy. A separate intervention study had an original event-label audit failure and an amended coverage miss. Both are recorded in [evidence.json](results/evidence.json); that larger study is not rerun by this kit.
+The program includes every contribution from the 432 trained parameters. Some groups of weights still act as dense filters over input history, and explaining their roles, the remaining errors and overall accuracy requires further work. A larger intervention study first failed an event-label audit; a separate amended cohort passed the technical checks but missed a coverage target. Both outcomes are recorded in [evidence.json](results/evidence.json). Reproducing that larger study requires its separate implementation and reports.
 
 ## Citation
 

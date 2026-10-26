@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="24 40 741 294" role="img" aria-labelledby="overview-title overview-desc">
+  <title id="overview-title">Learned rank and position routes</title>
+  <desc id="overview-desc">Approximate roles in the sixteen-neuron recurrent circuit. Carry and record neurons 2 and 4 drive input comparisons 1, 6, 7 and 8 and a newest-record penalty. Comparison contrasts contribute maximum-position suppression. Delayed signals 5 and 9 feed position carriers 0, 3 and 10 through 15; age transport and history-dependent threshold corrections feed back through the recurrent state. Rank and position routes contribute to the native readout, which retains all sixteen channels.</desc>
+  <defs>
+    <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+  </defs>
+  <g id="figure_1">
+    <g>
+      <rect x="24" y="40" width="741" height="294" fill="#fcfbf8" />
+    </g>
+    <g id="axes_1">
+      <g id="patch_2">
+        <path d="M 37.657714 134.189505  L 169.770857 134.189505  Q 172.401429 134.189505 172.401429 131.942312  L 172.401429 91.492844  Q 172.401429 89.245651 169.770857 89.245651  L 37.657714 89.245651  Q 35.027143 89.245651 35.027143 91.492844  L 35.027143 131.942312  Q 35.027143 134.189505 37.657714 134.189505  z " clip-path="url(#pe41364e03f)" style="fill: #fcfbf8; stroke: #a17b38; stroke-width: 1.1; stroke-linejoin: miter" />
+      </g>
+      <g id="patch_3">
+        <path d="M 233.489143 134.189505  L 374.370857 134.189505  Q 377.001429 134.189505 377.001429 131.942312  L 377.001429 91.492844  Q 377.001429 89.245651 374.370857 89.245651  L 233.489143 89.245651  Q 230.858571 89.245651 230.858571 91.492844  L 230.858571 131.942312  Q 230.858571 134.189505 233.489143 134.189505  z " clip-path="url(#pe41364e03f)" style="fill: #fcfbf8; stroke: #497963; stroke-width: 1.1; stroke-linejoin: miter" />
+      </g>
+      <g id="patch_4">
+        <path d="M 443.934857 134.189505  L 593.585143 134.189505  Q 596.215714 134.189505 596.215714 131.942312  L 596.215714 91.492844  Q 596.215714 89.245651 593.585143 89.245651  L 443.934857 89.245651  Q 441.304286 89.245651 441.304286 91.492844  L 441.304286 131.942312  Q 441.304286 134.189505 443.934857 134.189505  z " clip-path="url(#pe41364e03f)" style="fill: #fcfbf8; stroke: #497963; stroke-width: 1.1; stroke-linejoin: miter" />
+      </g>
+      <g id="patch_5">
+        <path d="M 37.657714 261.530422  L 169.770857 261.530422  Q 172.401429 261.530422 172.401429 259.283229  L 172.401429 218.833761  Q 172.401429 216.586569 169.770857 216.586569  L 37.657714 216.586569  Q 35.027143 216.586569 35.027143 218.833761  L 35.027143 259.283229  Q 35.027143 261.530422 37.657714 261.530422  z " clip-path="url(#pe41364e03f)" style="fill: #fcfbf8; stroke: #b05e4d; stroke-width: 1.1; stroke-linejoin: miter" />
+      </g>
+      <g id="patch_6">
+        <path d="M 233.489143 261.530422  L 374.370857 261.530422  Q 377.001429 261.530422 377.001429 259.283229  L 377.001429 218.833761  Q 377.001429 216.586569 374.370857 216.586569  L 233.489143 216.586569  Q 230.858571 216.586569 230.858571 218.833761  L 230.858571 259.283229  Q 230.858571 261.530422 233.489143 261.530422  z " clip-path="url(#pe41364e03f)" style="fill: #fcfbf8; stroke: #447a9c; stroke-width: 1.1; stroke-linejoin: miter" />
+      </g>
+      <g id="patch_7">
+        <path d="M 443.934857 261.530422  L 593.585143 261.530422  Q 596.215714 261.530422 596.215714 259.283229  L 596.215714 218.833761  Q 596.215714 216.586569 593.585143 216.586569  L 443.934857 216.586569  Q 441.304286 216.586569 441.304286 218.833761  L 441.304286 259.283229  Q 441.304286 261.530422 443.934857 261.530422  z " clip-path="url(#pe41364e03f)" style="fill: #fcfbf8; stroke: #447a9c; stroke-width: 1.1; stroke-linejoin: miter" />
+      </g>
+      <g id="patch_8">
+        <path d="M 645.612 211.592807  L 751.419429 211.592807  Q 754.05 211.592807 754.05 209.345615  L 754.05 151.417982  Q 754.05 149.170789 751.419429 149.170789  L 645.612 149.170789  Q 642.981429 149.170789 642.981429 151.417982  L 642.981429 209.345615  Q 642.981429 211.592807 645.612 211.592807  z " clip-path="url(#pe41364e03f)" style="fill: #fcfbf8; stroke: #232826; stroke-width: 1.1; stroke-linejoin: miter" />
+      </g>
+      <g id="patch_9">
+        <path d="M 175.866078 111.717578  Q 201.63019 111.717578 225.940858 111.717578  " clip-path="url(#pe41364e03f)" style="fill: none; stroke: #a17b38; stroke-width: 1.3; stroke-linecap: round" />
+        <path d="M 221.140858 109.317578  L 225.940858 111.717578  L 221.140858 114.117578  z " clip-path="url(#pe41364e03f)" style="fill: #a17b38; stroke: #a17b38; stroke-width: 1.3; stroke-linecap: round" />
+      </g>
+      <g id="patch_10">
+        <path d="M 380.459655 111.717578  Q 409.152717 111.717578 436.392334 111.717578  " clip-path="url(#pe41364e03f)" style="fill: none; stroke: #497963; stroke-width: 1.3; stroke-linecap: round" />
+        <path d="M 431.592334 109.317578  L 436.392334 111.717578  L 431.592334 114.117578  z " clip-path="url(#pe41364e03f)" style="fill: #497963; stroke: #497963; stroke-width: 1.3; stroke-linecap: round" />
+      </g>
+      <g id="patch_11">
+        <path d="M 175.866078 239.058495  Q 201.63019 239.058495 225.940858 239.058495  " clip-path="url(#pe41364e03f)" style="fill: none; stroke: #b05e4d; stroke-width: 1.3; stroke-linecap: round" />
+        <path d="M 221.140858 236.658495  L 225.940858 239.058495  L 221.140858 241.458495  z " clip-path="url(#pe41364e03f)" style="fill: #b05e4d; stroke: #b05e4d; stroke-width: 1.3; stroke-linecap: round" />
+      </g>
+      <g id="patch_12">
+        <path d="M 380.459655 239.058495  Q 409.152717 239.058495 436.392334 239.058495  " clip-path="url(#pe41364e03f)" style="fill: none; stroke: #447a9c; stroke-width: 1.3; stroke-linecap: round" />
+        <path d="M 431.592334 236.658495  L 436.392334 239.058495  L 431.592334 241.458495  z " clip-path="url(#pe41364e03f)" style="fill: #447a9c; stroke: #447a9c; stroke-width: 1.3; stroke-linecap: round" />
+      </g>
+      <g id="patch_13">
+        <path d="M 598.905406 113.291463  Q 619.597569 139.806202 639.395532 165.175121  " clip-path="url(#pe41364e03f)" style="fill: none; stroke: #497963; stroke-width: 1.3; stroke-linecap: round" />
+        <path d="M 638.334469 159.914499  L 639.395532 165.175121  L 634.550396 162.867598  z " clip-path="url(#pe41364e03f)" style="fill: #497963; stroke: #497963; stroke-width: 1.3; stroke-linecap: round" />
+      </g>
+      <g id="patch_14">
+        <path d="M 599.05526 237.606528  Q 619.599496 215.961375 639.143151 195.370421  " clip-path="url(#pe41364e03f)" style="fill: none; stroke: #447a9c; stroke-width: 1.3; stroke-linecap: round" />
+        <path d="M 634.097983 197.199707  L 639.143151 195.370421  L 637.579479 200.504126  z " clip-path="url(#pe41364e03f)" style="fill: #447a9c; stroke: #447a9c; stroke-width: 1.3; stroke-linecap: round" />
+      </g>
+      <g id="patch_15">
+        <path d="M 303.93 213.333796  Q 303.93 175.386669 303.93 138.892985  " clip-path="url(#pe41364e03f)" style="fill: none; stroke: #447a9c; stroke-width: 1.3; stroke-linecap: round" />
+        <path d="M 301.53 143.692985  L 303.93 138.892985  L 306.33 143.692985  z " clip-path="url(#pe41364e03f)" style="fill: #447a9c; stroke: #447a9c; stroke-width: 1.3; stroke-linecap: round" />
+      </g>
+      <g id="patch_16">
+        <path d="M 336.373714 277.755514  Q 336.373714 271.267216 336.373714 266.232362  " clip-path="url(#pe41364e03f)" style="fill: none; stroke: #447a9c; stroke-width: 1.3; stroke-linecap: round" />
+        <path d="M 333.973714 271.032362  L 336.373714 266.232362  L 338.773714 271.032362  z " clip-path="url(#pe41364e03f)" style="fill: #447a9c; stroke: #447a9c; stroke-width: 1.3; stroke-linecap: round" />
+      </g>
+      <g id="patch_17">
+        <path d="M 698.515714 131.443789  Q 698.515714 138.683332 698.515714 144.469431  " clip-path="url(#pe41364e03f)" style="fill: none; stroke: #a17b38; stroke-width: 1.3; stroke-linecap: round" />
+        <path d="M 700.915714 139.669431  L 698.515714 144.469431  L 696.115714 139.669431  z " clip-path="url(#pe41364e03f)" style="fill: #a17b38; stroke: #a17b38; stroke-width: 1.3; stroke-linecap: round" />
+      </g>
+      <g id="line2d_1">
+        <path d="M 271.486286 262.778862  L 271.486286 302.728954  L 336.373714 302.728954  L 336.373714 279.757651  " clip-path="url(#pe41364e03f)" style="fill: none; stroke: #447a9c; stroke-width: 1.2; stroke-linecap: square" />
+      </g>
+      <g id="line2d_2">
+        <path d="M 103.714286 87.997211  L 103.714286 61.030899  L 698.515714 61.030899  L 698.515714 129.445431  " clip-path="url(#pe41364e03f)" style="fill: none; stroke: #a17b38; stroke-width: 1.2; stroke-linecap: square" />
+      </g>
+      <g id="text_1">
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #a17b38" text-anchor="middle" x="103.714286" y="107.13625">Maximum-like</text>
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #a17b38" x="103.714286" y="123.410234" text-anchor="middle">history (2, 4)</text>
+      </g>
+      <g id="text_2">
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #497963" x="303.93" y="106.50289" text-anchor="middle">Input comparisons</text>
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #497963" x="303.93" y="123.410234" text-anchor="middle">1, 6, 7, 8</text>
+      </g>
+      <g id="text_3">
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #497963" x="518.76" y="106.50289" text-anchor="middle">Maximum-position</text>
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #497963" x="518.76" y="123.00289" text-anchor="middle">suppression</text>
+      </g>
+      <g id="text_4">
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #b05e4d" x="103.714286" y="233.843808" text-anchor="middle">Delayed signals</text>
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #b05e4d" x="103.714286" y="250.751152" text-anchor="middle">5, 9</text>
+      </g>
+      <g id="text_5">
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #447a9c" x="303.93" y="234.909433" text-anchor="middle">Position carriers</text>
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #447a9c" x="303.93" y="250.751152" text-anchor="middle">0, 3, 10-15</text>
+      </g>
+      <g id="text_6">
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #447a9c" x="518.76" y="233.843808" text-anchor="middle">Older-position</text>
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #447a9c" x="518.76" y="250.310292" text-anchor="middle">scores</text>
+      </g>
+      <g id="text_7">
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #232826" x="698.515714" y="167.982736" text-anchor="middle">Native readout</text>
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #232826" x="698.515714" y="184.560939" text-anchor="middle">Vh</text>
+        <text style="font-size: 14px; font-family: system-ui, sans-serif; fill: #232826" x="698.515714" y="200.335626" text-anchor="middle">all 16 channels</text>
+      </g>
+      <g id="text_8">
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #646a65" x="201.63" y="69.982696" text-anchor="middle">threshold</text>
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #646a65" x="201.63" y="81.505321" text-anchor="middle">drive</text>
+      </g>
+      <g id="text_9">
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #646a65" x="409.15" y="69.983446" text-anchor="middle">signed</text>
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #646a65" x="409.15" y="81.505321" text-anchor="middle">contrasts</text>
+      </g>
+      <g id="text_10">
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #646a65" x="201.63" y="199.820494" text-anchor="middle">candidate /</text>
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #646a65" x="201.63" y="211.343119" text-anchor="middle">record writes</text>
+      </g>
+      <g id="text_11">
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #646a65" x="409.15" y="277.223797" text-anchor="middle">age-aligned</text>
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #646a65" x="409.15" y="288.746422" text-anchor="middle">contributions</text>
+      </g>
+      <g id="text_12">
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #646a65" x="375.5" y="172.620225" text-anchor="middle">history-dependent</text>
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #646a65" x="375.5" y="184.14285" text-anchor="middle">threshold corrections</text>
+      </g>
+      <g id="text_13">
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #447a9c" x="303.93" y="320.509603" text-anchor="middle">age transport</text>
+      </g>
+      <g id="text_14">
+        <text style="font-size: 11.5px; font-family: system-ui, sans-serif; fill: #a17b38" x="512.914286" y="54.72964" text-anchor="middle">newest-record penalty (4)</text>
+      </g>
+    </g>
+  </g>
+  <defs>
+    <clipPath id="pe41364e03f">
+      <rect x="27.72" y="50.544" width="736.56" height="272.16" />
+    </clipPath>
+  </defs>
+</svg>
